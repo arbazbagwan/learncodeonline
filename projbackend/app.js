@@ -4,6 +4,9 @@ const express = require("express");
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+
+//myRoutes
+const userRoutes = require('./routes/user');
 const authRoutes = require('./routes/authentication');
 
 //Middleware
@@ -25,7 +28,7 @@ mongoose.connect(process.env.DATABASE,{
 //MyRoutes
 
 app.use("/api", authRoutes);
-
+app.use("/api",userRoutes);
 //Server 
 const port = 8000;
 app.listen(port, ()=>{

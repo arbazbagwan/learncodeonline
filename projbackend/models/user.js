@@ -30,14 +30,14 @@ var userSchema = new mongoose.Schema({
 
     },
     salt: String,
-        role:{
-            type: Number,
-            default: 0
-        },
-        purchases:{
-            type:Array,
-            default:[]
-        }
+    role:{
+        type: Number,
+        default: 0
+    },
+    purchases:{
+        type:Array,
+        default:[]
+    }
     },
     {timestamps: true}
 );
@@ -57,9 +57,12 @@ userSchema
 userSchema.methods = {
 
     authenticate: function(plainpassword){
-        return this.securePassword(plainpassword)===this.encry_password
+               //encrypted password                     //database stored encrypted password
+        return this.securePassword(plainpassword) ===   this.encry_password 
+        console.log(this.securePassword());
     },
 
+    //encrypting password
     securePassword: function(plainpassword){
         if(!plainpassword) return "";
         try{
