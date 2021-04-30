@@ -8,6 +8,8 @@ const cookieParser = require('cookie-parser');
 //myRoutes
 const userRoutes = require('./routes/user');
 const authRoutes = require('./routes/authentication');
+const categoryRoutes = require("./routes/category");
+const productRoutes = require("./routes/product");
 
 //Middleware
 const app = express();
@@ -29,6 +31,9 @@ mongoose.connect(process.env.DATABASE,{
 
 app.use("/api", authRoutes);
 app.use("/api",userRoutes);
+app.use("/api",categoryRoutes);
+app.use("/api", productRoutes);
+
 //Server 
 const port = 8000;
 app.listen(port, ()=>{
