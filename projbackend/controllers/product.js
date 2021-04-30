@@ -1,6 +1,6 @@
 const Product = require("../models/product")
 const formidable = require('formidable')
-const fs = require('fs')
+const fs = require('fs');
 const _ = require("lodash");
 
 
