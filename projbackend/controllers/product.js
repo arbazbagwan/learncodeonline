@@ -76,14 +76,14 @@ exports.createProduct = (req, res) =>{
 
 exports.deleteProduct = (req, res) =>{
     let product = req.product;
-    product.Remove((err, product)=>{
+    product.remove((err, deletedproduct)=>{
         if(err){
             return res.status(400).json({
                 message: "cannot remove product"
             })
         }
         return res.json({
-            message:"Product was deleted", product
+            message:"Product was deleted"
         })
     });
 };
@@ -127,3 +127,22 @@ exports.updateProduct = (req, res) => {
       });
     });
   };
+
+  exports.getAllProduct = (req, res) =>{
+    let limit = req.query.limit ? parseInt(req.query.limit) : 8;
+    let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
+    
+    Product.find()
+    .select("-photo")
+    .populate("category")
+    .sort([[sortBy, "asc"]])
+    .limit(limit)
+    .exec((err, AllProduct)=>{
+      if(err){
+        return res.status(400).json({
+          error: "Error Getting Products"
+        })
+      }
+      return res.json(AllProduct);
+    })
+  }
