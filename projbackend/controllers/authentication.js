@@ -8,7 +8,7 @@ exports.signup = (req,res)=>{
   
     const errors =  validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({errors: errors.array()[0].msg});
+        return res.status(400).json({error: errors.array()[0].msg});
       }
 
     const users = new Users(req.body);
@@ -22,11 +22,6 @@ exports.signup = (req,res)=>{
       }
       else{
           res.json(user);
-        //   res.json({
-        //       name: user.name,
-        //       email: user.email,
-        //       _id: user._id
-        //   })
       }
   });
 };

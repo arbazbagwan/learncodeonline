@@ -146,3 +146,35 @@ exports.updateProduct = (req, res) => {
       return res.json(AllProduct);
     })
   }
+
+  exports.updateStock = (req, res) => {
+    let myOperations = req.body.order.products.map(prod =>{
+      return {
+        updatedOne: {
+          filter: {_id: prod.id},
+          update: {$inc: {stock: -prod.count, sold: +prod.count}}
+        }
+      }
+    })
+
+    Product.bulkWrite(myOperations, {}, (err, products)=>{
+      if(err){
+        return res.status(400).json({
+          error: "FAildes to update"
+        })
+      }
+      next();
+    });
+
+  }
+
+  exports.getAllUniqueCategories =(req, res) =>{
+    Product.distinct("category", {}, (err, category)=>{
+      if(err){
+        return res.status(400).json({
+          error: "not able to find category"
+        })
+      }
+      res.json(category)
+    })
+  };
