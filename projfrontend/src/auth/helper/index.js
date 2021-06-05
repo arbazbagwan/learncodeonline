@@ -15,7 +15,7 @@ export const signup = user =>{
     .catch(err=>console.log(err))
 }
 
-export const signin = user =>{
+export const SignIn = user =>{
     return fetch(`${API}/signin`,{
         method: "POST",
         headers: {
@@ -37,6 +37,17 @@ export const authenticate = (data, next) =>{
     }
 }
 
+export const isAuthenticated = () =>{
+    if(typeof window == "undefined"){
+        return false
+    }
+    if(localStorage.getItem("JWT")){
+        return JSON.parse(localStorage.getItem("JWT"))
+    }
+    else{
+        return false
+    }
+}
 
 export const signout = next =>{
     if(typeof window !== "undefined"){
@@ -49,17 +60,5 @@ export const signout = next =>{
 
         .then(response=>console.log("signout success"))
         .catch(err=>console.log(err))
-    }
-}
-
-export const isAuthenticated = () =>{
-    if(typeof window == "undefined"){
-        return false
-    }
-    if(localStorage.getItem("JWT")){
-        return JSON.parse(localStorage.getItem("JWT"))
-    }
-    else{
-        return false
     }
 }
